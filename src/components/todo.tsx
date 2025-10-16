@@ -65,8 +65,12 @@ const Todo : React.FC = () => {
         </div>
         {
             todos.length>0 && (
-                <div className=' border rounded border-amber-900 w-72 justify-around'>
-                      { todos.map((todo :TTodo,index : number) => (
+                <>
+                <div className='flex flex-row'> 
+                 <div className=' border rounded border-amber-900 w-72 justify-around'>
+                    <h2 className='text-2xl font-extralight text-amber-700'>Pending Tasks</h2>
+                      { todos.map((todo :TTodo) => (
+                         !todo.status && ( 
                           <div className='flex flex-row p-2 items-center' key={todo.id}>
                              { isEdit && editId === todo.id  ? (
                                  <>
@@ -76,7 +80,6 @@ const Todo : React.FC = () => {
                                  </> 
                                ):( 
                                 <>
-                                    <span className='text-white '>{index +1 }</span>
                                     <input type="checkbox" onClick={() => handleStatus(todo.id)}/>
                                     <p className='p-2 text-white'>{todo.todo}</p>
                                     <Edit size={20} color={'white'} onClick={() => handleEdit(todo.id)}/>
@@ -84,8 +87,20 @@ const Todo : React.FC = () => {
                                 </>
                             )}  
                           </div>
-                      ))}
+                        ))
+                    )}
                 </div>    
+                <div className='border rounded border-amber-800 m-3 p-3'>
+                   <h2 className='font-extralight text-2xl text-amber-800'>Completed Task</h2>
+                    { todos.map((item : TTodo) =>  (  
+                        item.status && ( 
+                         <div>
+                             <p className='text-white'>{item.todo}</p>
+                         </div>   
+                    )))}
+                </div>  
+               </div>   
+              </>
             )
         }
      </div>   
